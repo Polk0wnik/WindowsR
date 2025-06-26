@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 public class SelectionFrameFromScreen : MonoBehaviour
 {
+    public event Func<bool> onPointerEnterUI;
     public GUISkin skin0;
     private int maxLayer = 50;
     private bool drawFrame; 
@@ -25,7 +27,7 @@ public class SelectionFrameFromScreen : MonoBehaviour
     }
     private void StartSelect()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !onPointerEnterUI.Invoke())
         {
             startPoint = Input.mousePosition;
             drawFrame = true;
