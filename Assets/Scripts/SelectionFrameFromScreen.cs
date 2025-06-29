@@ -16,6 +16,7 @@ public class SelectionFrameFromScreen : MonoBehaviour
     }
     private void OnGUI()
     {
+        if (onPointerEnterUI.Invoke()) return;
         GUI.skin = skin0;
         GUI.depth = maxLayer;
         StartSelect();
@@ -27,7 +28,7 @@ public class SelectionFrameFromScreen : MonoBehaviour
     }
     private void StartSelect()
     {
-        if (Input.GetMouseButtonDown(0) && !onPointerEnterUI.Invoke())
+        if (Input.GetMouseButtonDown(0))
         {
             startPoint = Input.mousePosition;
             drawFrame = true;

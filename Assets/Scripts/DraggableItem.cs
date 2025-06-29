@@ -2,9 +2,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI; 
 using UnityEngine;
 
-public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Outline line;
+    public bool isPointerEnter { get; private set; }
     public RectTransform rectTransform { get; set; }
     private Canvas canvas;
     private CanvasGroup canGroup;
@@ -18,11 +19,13 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerEnter(PointerEventData eventData)
     {
         line.enabled = true;
+        isPointerEnter = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         line.enabled = false;
+        isPointerEnter = false;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
