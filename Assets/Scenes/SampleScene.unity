@@ -631,8 +631,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 10, y: -10}
+  m_EffectColor: {r: 0.47912958, g: 0.84224445, b: 0.9150943, a: 0.5}
+  m_EffectDistance: {x: 25, y: -25}
   m_UseGraphicAlpha: 1
 --- !u!114 &767220132
 MonoBehaviour:
@@ -1017,8 +1017,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 10, y: -10}
+  m_EffectColor: {r: 0.47912958, g: 0.84224445, b: 0.9150943, a: 0.5}
+  m_EffectDistance: {x: 25, y: -25}
   m_UseGraphicAlpha: 1
 --- !u!114 &1257110398
 MonoBehaviour:
@@ -1290,8 +1290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 10, y: -10}
+  m_EffectColor: {r: 0.47912958, g: 0.84224445, b: 0.9150943, a: 0.5}
+  m_EffectDistance: {x: 25, y: -25}
   m_UseGraphicAlpha: 1
 --- !u!114 &1600145540
 MonoBehaviour:

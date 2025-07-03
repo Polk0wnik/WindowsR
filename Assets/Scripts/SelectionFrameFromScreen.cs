@@ -3,9 +3,11 @@ using UnityEngine;
 public class SelectionFrameFromScreen : MonoBehaviour
 {
     public event Func<bool> onPointerEnterUI;
+    public event Action<DraggableItem> onAddSelectedItem;
+    public event Action onResetSelectedItem;
     public GUISkin skin0;
     private int maxLayer = 50;
-    private bool drawFrame; 
+    private bool onSelectionStay; 
     private Vector2 startPoint;
     private Vector2 endPoint;
     private SelectableRegistry registry;
@@ -16,7 +18,6 @@ public class SelectionFrameFromScreen : MonoBehaviour
     }
     private void OnGUI()
     {
-        if (onPointerEnterUI.Invoke()) return;
         GUI.skin = skin0;
         GUI.depth = maxLayer;
         StartSelect();
@@ -31,14 +32,17 @@ public class SelectionFrameFromScreen : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             startPoint = Input.mousePosition;
-            drawFrame = true;
+            if (onPointerEnterUI.Invoke()) return;
+            onSelectionStay = true;
+            onResetSelectedItem?.Invoke();
         }
     }    
     private void StaySelect()
     {
-        if(Input.GetMouseButton(0) && drawFrame) 
+        if(Input.GetMouseButton(0) && onSelectionStay) 
         {
             endPoint = Input.mousePosition;
+            if (Vector2.Distance(startPoint, endPoint) < 10) return;
             screenSpaceRect = GetScreenRect(startPoint,endPoint);
             DraweFrame(screenSpaceRect);
         }
@@ -48,7 +52,7 @@ public class SelectionFrameFromScreen : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             endPoint = Input.mousePosition;
-            drawFrame = false;
+            onSelectionStay = false;
             SelectUIElementsInRect(screenSpaceRect);
         }
     }
@@ -59,7 +63,8 @@ public class SelectionFrameFromScreen : MonoBehaviour
             Rect itemRect = GetRectFromItem(item);
             if (screenSpaceRect.Overlaps(itemRect, true))
             {
-                Debug.Log("Selected: " + item.name);
+                item.SetInSelectionFrame();
+                onAddSelectedItem?.Invoke(item);
             }
         }
     }

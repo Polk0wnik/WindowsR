@@ -5,7 +5,8 @@ using UnityEngine;
 public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Outline line;
-    public bool isPointerEnter { get; private set; }
+    public bool hasHitPointerEnter { get; private set; }
+    public bool InSelectionFrame { get; private set; }
     public RectTransform rectTransform { get; set; }
     private Canvas canvas;
     private CanvasGroup canGroup;
@@ -19,30 +20,44 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerEnter(PointerEventData eventData)
     {
         line.enabled = true;
-        isPointerEnter = true;
+        hasHitPointerEnter = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         line.enabled = false;
-        isPointerEnter = false;
+        hasHitPointerEnter = false;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         canGroup.alpha = 0.5f;
         canGroup.blocksRaycasts = false;
+        hasHitPointerEnter = true;
         rectTransform.SetAsLastSibling();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        hasHitPointerEnter = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         canGroup.alpha = 1;
+        hasHitPointerEnter = false;
         canGroup.blocksRaycasts = true;
     }
+    public void SetInSelectionFrame()
+    {
+        InSelectionFrame = true;
+        line.enabled = true;
+    }
+    public void ResetInSelectionFrame()
+    {
+        InSelectionFrame = false;
+        line.enabled = false;
+    }
+
 }
