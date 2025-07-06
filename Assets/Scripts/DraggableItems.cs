@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,14 +8,14 @@ public class DraggableItems : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private List<DraggableItem> selectedItems = new();
     private List<DraggableItem> draggableItems = new();
     private DraggableItem currentDrItem;
-    private SelectableRegistry registry;
     private SelectionFrameFromScreen frameSelect;
+    private Canvas canvas;
     private bool isDraggingAll;
     private void Awake()
     {
         draggableItems.AddRange(GetComponentsInChildren<DraggableItem>(false));
-        registry = GetComponent<SelectableRegistry>();
         frameSelect = GetComponent<SelectionFrameFromScreen>();
+        canvas = GetComponent<Canvas>();
     }
     private void OnEnable()
     {
@@ -40,18 +41,8 @@ public class DraggableItems : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (selectedItems.Count == 0)
-        {
-            foreach (DraggableItem item in draggableItems)
-            {
-                if (item.hasHitPointerEnter)
-                {
-                    currentDrItem = item;
-                    currentDrItem.OnBeginDrag(eventData);
-                }
-            }
-                return;
-        }
+        CheckCurrentDRItem();
+        BeginDrag(eventData);
         isDraggingAll = true;
     }
 
@@ -71,6 +62,29 @@ public class DraggableItems : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        CheckCurrentDRItem();
+        ResetSelectedItems();
+        currentDrItem.OnPointerClick(eventData);
+    }
+    private void CheckCurrentDRItem()
+    {
+        currentDrItem = null;
+        foreach(var item in draggableItems)
+        {
+            if(item.hasHitPointerEnter)
+            {
+                currentDrItem = item;
+                break;
+            }
+        }
+    }
+    private void BeginDrag(PointerEventData eventData)
+    {
+        if(selectedItems.Count <= 1 || !selectedItems.Contains(currentDrItem))
+        {
+            ResetSelectedItems();
+            currentDrItem.OnBeginDrag(eventData);
+            currentDrItem.ResetInSelectionFrame();
+        }
     }
 }

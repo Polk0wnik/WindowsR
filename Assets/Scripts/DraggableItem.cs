@@ -7,6 +7,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Outline line;
     public bool hasHitPointerEnter { get; private set; }
     public bool InSelectionFrame { get; private set; }
+    public bool IsDraggableItem { get; private set; }
     public RectTransform rectTransform { get; set; }
     private Canvas canvas;
     private CanvasGroup canGroup;
@@ -19,14 +20,12 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        line.enabled = true;
-        hasHitPointerEnter = true;
+        PointerEnter();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        line.enabled = false;
-        hasHitPointerEnter = false;
+        PointerExit();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -34,6 +33,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         canGroup.alpha = 0.5f;
         canGroup.blocksRaycasts = false;
         hasHitPointerEnter = true;
+        IsDraggableItem = true;
         rectTransform.SetAsLastSibling();
     }
 
@@ -41,6 +41,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         hasHitPointerEnter = true;
+        IsDraggableItem = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -48,16 +49,40 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         canGroup.alpha = 1;
         hasHitPointerEnter = false;
         canGroup.blocksRaycasts = true;
+        IsDraggableItem = false;
     }
     public void SetInSelectionFrame()
     {
         InSelectionFrame = true;
-        line.enabled = true;
+        LineEnable();
     }
     public void ResetInSelectionFrame()
     {
         InSelectionFrame = false;
+        LineDisable();
+    }
+    public void LineEnable()
+    {
+        line.enabled = true;
+    }
+    public void LineDisable()
+    {
+        if(!InSelectionFrame) 
         line.enabled = false;
     }
-
+    public void PointerEnter()
+    {
+        line.enabled = true;
+        hasHitPointerEnter = true;
+    }
+    public void PointerExit()
+    {
+        line.enabled = false;
+        hasHitPointerEnter = false;
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        PointerEnter();
+        LineEnable();
+    }
 }
