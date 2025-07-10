@@ -56,7 +56,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         InSelectionFrame = true;
         LineEnable();
     }
-    public void ResetInSelectionFrame()
+    public void ResetItem()
     {
         InSelectionFrame = false;
         LineDisable();

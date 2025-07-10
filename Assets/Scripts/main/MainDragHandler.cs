@@ -3,18 +3,18 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DraggableItems : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class MainDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     private List<DraggableItem> selectedItems = new();
     private List<DraggableItem> draggableItems = new();
     private DraggableItem currentDrItem;
-    private SelectionFrameFromScreen frameSelect;
+    private SelectionFrame frameSelect;
     private Canvas canvas;
     private bool isDraggingAll;
     private void Awake()
     {
         draggableItems.AddRange(GetComponentsInChildren<DraggableItem>(false));
-        frameSelect = GetComponent<SelectionFrameFromScreen>();
+        frameSelect = GetComponent<SelectionFrame>();
         canvas = GetComponent<Canvas>();
     }
     private void OnEnable()
@@ -35,7 +35,7 @@ public class DraggableItems : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private void ResetSelectedItems()
     {
         foreach (var item in selectedItems)
-            item.ResetInSelectionFrame();
+            item.ResetItem();
         selectedItems.Clear();
     }
 
@@ -84,7 +84,7 @@ public class DraggableItems : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             ResetSelectedItems();
             currentDrItem.OnBeginDrag(eventData);
-            currentDrItem.ResetInSelectionFrame();
+            currentDrItem.ResetItem();
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-public class SelectionFrameFromScreen : MonoBehaviour
+public class SelectionFrame : MonoBehaviour
 {
     public event Func<bool> onPointerEnterUI;
     public event Action<DraggableItem> onAddSelectedItem;
@@ -10,11 +10,11 @@ public class SelectionFrameFromScreen : MonoBehaviour
     private bool onSelectionStay; 
     private Vector2 startPoint;
     private Vector2 endPoint;
-    private SelectableRegistry registry;
+    private RegistrySelectableItems registry;
     private Rect screenSpaceRect;
     private void Awake()
     {
-        registry = GetComponent<SelectableRegistry>();
+        registry = GetComponent<RegistrySelectableItems>();
     }
     private void OnGUI()
     {
@@ -58,7 +58,7 @@ public class SelectionFrameFromScreen : MonoBehaviour
     }
     private void SelectUIElementsInRect(Rect screenSpaceRect)
     {
-        foreach (var item in registry.items)
+        foreach (var item in registry.selectedItems)
         {
             Rect itemRect = GetRectFromItem(item);
             if (screenSpaceRect.Overlaps(itemRect, true))

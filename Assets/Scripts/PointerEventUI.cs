@@ -5,10 +5,10 @@ using UnityEngine.EventSystems;
 
 public class PointerEventUI : MonoBehaviour
 {
-    private SelectionFrameFromScreen frame;
+    private SelectionFrame frame;
     private void Awake()
     {
-        frame = GetComponent<SelectionFrameFromScreen>();
+        frame = GetComponent<SelectionFrame>();
     }
     private void OnEnable()
     {
