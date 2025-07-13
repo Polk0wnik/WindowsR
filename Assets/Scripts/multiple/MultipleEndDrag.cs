@@ -10,8 +10,13 @@ public class MultipleEndDrag : MonoBehaviour
     {
         reg = FindObjectOfType<RegistrySelectableItems>();
     }
-    public void OnMultipleEndDrag(PointerEventData eventData, DraggableItem item)
+    public void OnMultipleEndDrag(PointerEventData eventData)
     {
-
+        foreach(var item in reg.selectedItems)
+        {
+            item.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            item.GetComponent<CanvasGroup>().alpha = 1f;
+        }
+        reg.ResetItemOffset();
     }
 }
