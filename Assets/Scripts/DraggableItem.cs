@@ -21,19 +21,26 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerEnter(PointerEventData eventData)
     {
         PointerEnter();
+        LineEnable();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         PointerExit();
+        LineDisable();
     }
-
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        PointerEnter();
+        LineEnable();
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        canGroup.alpha = 0.5f;
-        canGroup.blocksRaycasts = false;
         hasHitPointerEnter = true;
         IsDraggableItem = true;
+
+        canGroup.alpha = 0.5f;
+        canGroup.blocksRaycasts = false; 
         rectTransform.SetAsLastSibling();
     }
 
@@ -47,9 +54,11 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnEndDrag(PointerEventData eventData)
     {
         canGroup.alpha = 1;
-        hasHitPointerEnter = false;
         canGroup.blocksRaycasts = true;
+
         IsDraggableItem = false;
+        hasHitPointerEnter = false;
+
     }
     public void SetInSelectionFrame()
     {
@@ -68,21 +77,15 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void LineDisable()
     {
         if(!InSelectionFrame) 
-        line.enabled = false;
+            line.enabled = false;
     }
     public void PointerEnter()
-    {
-        line.enabled = true;
-        hasHitPointerEnter = true;
+    { 
+        hasHitPointerEnter = true; 
     }
     public void PointerExit()
-    {
-        line.enabled = false;
-        hasHitPointerEnter = false;
+    { 
+        hasHitPointerEnter = false; 
     }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        PointerEnter();
-        LineEnable();
-    }
+ 
 }

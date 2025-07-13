@@ -16,6 +16,10 @@ public class SelectionFrame : MonoBehaviour
     {
         registry = GetComponent<RegistrySelectableItems>();
     }
+    private void OnEnable()
+    {
+        onResetSelectedItem?.Invoke();
+    }
     private void OnGUI()
     {
         GUI.skin = skin0;
@@ -34,7 +38,7 @@ public class SelectionFrame : MonoBehaviour
             startPoint = Input.mousePosition;
             if (onPointerEnterUI.Invoke()) return;
             onSelectionStay = true;
-            onResetSelectedItem?.Invoke();
+            onResetSelectedItem?.Invoke(); 
         }
     }    
     private void StaySelect()
@@ -56,15 +60,17 @@ public class SelectionFrame : MonoBehaviour
             SelectUIElementsInRect(screenSpaceRect);
         }
     }
-    private void SelectUIElementsInRect(Rect screenSpaceRect)
+    private void SelectUIElementsInRect(Rect screen)
     {
-        foreach (var item in registry.selectedItems)
+        foreach (var item in registry.draggableItems)
         {
             Rect itemRect = GetRectFromItem(item);
-            if (screenSpaceRect.Overlaps(itemRect, true))
+            if (screen.Overlaps(itemRect, true))
             {
-                item.SetInSelectionFrame();
+                item?.SetInSelectionFrame();
+                item?.LineEnable();
                 onAddSelectedItem?.Invoke(item);
+                screenSpaceRect = Rect.zero;
             }
         }
     }
@@ -91,7 +97,7 @@ public class SelectionFrame : MonoBehaviour
     private Rect GetRectFromItem(DraggableItem item)
     {
         Vector3[] positions = new Vector3[4];
-        item.rectTransform.GetWorldCorners(positions);
+        item.rectTransform?.GetWorldCorners(positions);
         Vector3 start = RectTransformUtility.WorldToScreenPoint(null, positions[0]);
         Vector3 end = RectTransformUtility.WorldToScreenPoint(null, positions[2]);
         float x = Mathf.Min(start.x, end.x);

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class RegistrySelectableItems : MonoBehaviour
 {
-    public readonly List<DraggableItem> selectedItems = new();
-    public readonly List<DraggableItem> draggableItems = new();
+    public  List<DraggableItem> selectedItems = new();
+    public  List<DraggableItem> draggableItems = new();
     public readonly Dictionary<DraggableItem, Vector2> itemsOffset = new();
     public DraggableItem currentDrItem { get; private set; }
     private SelectionFrame frameSelect;
@@ -25,13 +25,13 @@ public class RegistrySelectableItems : MonoBehaviour
     }
     public void AddItem(DraggableItem item)
     {
-        selectedItems.Add(item);
+        selectedItems.Add(item); 
     }
     public void ResetItems()
     {
         foreach (var item in selectedItems)
-            item.ResetItem();
-        selectedItems.Clear();
+            item?.ResetItem();
+        selectedItems.Clear(); 
     }
     public void SetCurrentItem()
     {

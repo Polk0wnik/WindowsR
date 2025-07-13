@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,18 +19,18 @@ public class PointerEventUI : MonoBehaviour
     }
     private List<RaycastResult> GetRaycastHitResults()
     {
-        PointerEventData pointerData = new PointerEventData(EventSystem.current);
-        List<RaycastResult> hitResults = new List<RaycastResult>();
-        pointerData.position = Input.mousePosition;
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        }; 
+        List<RaycastResult> hitResults = new();
         EventSystem.current.RaycastAll(pointerData, hitResults);
         return hitResults;
     }    
     private bool IsPointerDraggable()
     {
-        foreach(RaycastResult resultHit in GetRaycastHitResults())
-        {
-            if(resultHit.gameObject.GetComponent<DraggableItem>()) return true;
-        }
+        foreach (var hit in GetRaycastHitResults())
+            if (hit.gameObject.GetComponent<DraggableItem>()) return true;
         return false;
     }
 }

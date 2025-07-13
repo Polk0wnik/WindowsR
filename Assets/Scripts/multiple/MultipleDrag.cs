@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,7 +16,7 @@ public class MultipleDrag : MonoBehaviour
         {
             if(reg.itemsOffset.ContainsKey(item))
             {
-                item.rectTransform.position = GetPosition(eventData,item);
+                item.rectTransform.anchoredPosition = GetPosition(eventData,item);
             }
         }
     }

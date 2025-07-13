@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,12 +9,12 @@ public class MultipleEndDrag : MonoBehaviour
         reg = FindObjectOfType<RegistrySelectableItems>();
     }
     public void OnMultipleEndDrag(PointerEventData eventData)
-    {
-        foreach(var item in reg.selectedItems)
+    { 
+        foreach (var item in reg.selectedItems)
         {
             item.GetComponent<CanvasGroup>().blocksRaycasts = true;
             item.GetComponent<CanvasGroup>().alpha = 1f;
         }
-        reg.ResetItemOffset();
+        reg?.ResetItemOffset();
     }
 }

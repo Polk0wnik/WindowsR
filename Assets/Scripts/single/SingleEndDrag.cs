@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,6 +10,6 @@ public class SingleEndDrag : MonoBehaviour
     }
     public void OnSingleEndDrag(PointerEventData eventData, DraggableItem item)
     {
-        item?.OnEndDrag(eventData);
+        item?.OnEndDrag(eventData);  
     }
 }
