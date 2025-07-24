@@ -1,86 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 public class ResizePanel : MonoBehaviour, IDragHandler
 {
-    Canvas canvas;
-    RectTransform rtParent;
-    public DirectionType directionType;
-    public float minWidth = 100f;
-    public float minHeight = 100f;
-    private void Awake()
+    public float minWidth = 100;
+    public float minHeight = 100;
+
+    public float maxWidth = 1920;
+    public float maxHeight = 1080;
+    public enum ResizeDirection { Left, Right, Top, Bottom }
+    public ResizeDirection direction;
+
+    private RectTransform target;
+    private Canvas canvas;
+
+    private void Start()
     {
         canvas = GetComponentInParent<Canvas>();
-        rtParent = transform.parent.GetComponent<RectTransform>();
+        target = GetComponentInParent<HashWindow>().rcTr;
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         Vector2 delta = eventData.delta / canvas.scaleFactor;
-        switch (directionType)
+
+        switch (direction)
         {
-            case DirectionType.Right:
-                ResizeRight(delta.x);
-                break;
-            case DirectionType.Left:
+            case ResizeDirection.Left:
                 ResizeLeft(delta.x);
                 break;
-            case DirectionType.Bottom:
-                ResizeBottom(delta.y);
+            case ResizeDirection.Right:
+                ResizeRight(delta.x);
                 break;
-            case DirectionType.Top:
+            case ResizeDirection.Top:
                 ResizeTop(delta.y);
                 break;
+            case ResizeDirection.Bottom:
+                ResizeBottom(delta.y);
+                break;
         }
     }
-    private void ResizeRight(float deltaX)
-    {
-        float scaleX = rtParent.lossyScale.x;
-        deltaX /= scaleX;
-        float newWidth = rtParent.rect.width + deltaX;
-        if(minWidth <= newWidth)
-        {
-            rtParent.offsetMax += new Vector2(deltaX, 0);
-        }
-    }
-    private void ResizeLeft(float deltaX) 
-    {
-        float scaleX = rtParent.lossyScale.x;
-        deltaX /= scaleX;
-        float newWidth = rtParent.rect.width - deltaX;
-        if (minWidth <= newWidth)
-        {
-            rtParent.offsetMin += new Vector2(deltaX, 0);
-        }
 
-    }
-    private void ResizeBottom(float deltaY)
+    void ResizeLeft(float dx)
     {
-        float scaleY = rtParent.lossyScale.y;
-        deltaY /= scaleY;
-        float newHeight = rtParent.rect.height - deltaY;
-        if (minHeight <= newHeight)
-        {
-            rtParent.offsetMin += new Vector2(0, deltaY);
-        }
+        float scale = target.lossyScale.x;
+        dx /= scale;
+        float newWidth = target.rect.width - dx;
+        if (minWidth <= newWidth)
+            target.offsetMin += new Vector2(dx, 0);
     }
-    private void ResizeTop(float deltaY)
+
+    void ResizeRight(float dx)
     {
-        float scaleY = rtParent.lossyScale.y;
-        deltaY /= scaleY;
-        float newHeight = rtParent.rect.height + deltaY;
+        float scale = target.lossyScale.x;
+        dx /= scale;
+        float newWidth = target.rect.width + dx;
+        if (minWidth <= newWidth)
+            target.offsetMax += new Vector2(dx, 0);
+    }
+
+    void ResizeTop(float dy)
+    {
+        float scale = target.lossyScale.y;
+        dy /= scale;
+        float newHeight = target.rect.height + dy;
         if (minHeight <= newHeight)
-        {
-            rtParent.offsetMax += new Vector2(0, deltaY);
-        }
+            target.offsetMax += new Vector2(0, dy);
+    }
+
+    void ResizeBottom(float dy)
+    {
+        float scale = target.lossyScale.y;
+        dy /= scale;
+        float newHeight = target.rect.height - dy;
+        if (minHeight <= newHeight)
+            target.offsetMin += new Vector2(0, dy);
     }
 }
-public enum DirectionType
-{
-    Right,
-    Left,
-    Top,
-    Bottom
-}
+ 

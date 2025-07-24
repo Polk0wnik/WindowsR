@@ -14,11 +14,12 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public Transform acceptParentTrans { get; set; }
     private void Awake()
     {
+        acceptParentTrans = GetComponent<Transform>();
+        canvas = acceptParentTrans.GetComponentInParent<Canvas>();
+
         line = GetComponent<Outline>();
         rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
         canGroup = GetComponent<CanvasGroup>();
-        acceptParentTrans = GetComponent<Transform>();
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
