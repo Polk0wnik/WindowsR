@@ -10,7 +10,7 @@ public class UiPanel : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    // ого
     void Update()
     {
         

@@ -37,17 +37,17 @@ public class ResizePanel : MonoBehaviour, IDragHandler
     }
     private void ResizeRight(float deltaX)
     {
-        float scaleX = rtParent.localScale.x;
+        float scaleX = rtParent.lossyScale.x;
         deltaX /= scaleX;
         float newWidth = rtParent.rect.width + deltaX;
         if(minWidth <= newWidth)
         {
-            rtParent.offsetMin += new Vector2(deltaX, 0);
+            rtParent.offsetMax += new Vector2(deltaX, 0);
         }
     }
-    private void ResizeLeft(float deltaX)
+    private void ResizeLeft(float deltaX) 
     {
-        float scaleX = rtParent.localScale.x;
+        float scaleX = rtParent.lossyScale.x;
         deltaX /= scaleX;
         float newWidth = rtParent.rect.width - deltaX;
         if (minWidth <= newWidth)
@@ -58,7 +58,7 @@ public class ResizePanel : MonoBehaviour, IDragHandler
     }
     private void ResizeBottom(float deltaY)
     {
-        float scaleY = rtParent.localScale.y;
+        float scaleY = rtParent.lossyScale.y;
         deltaY /= scaleY;
         float newHeight = rtParent.rect.height - deltaY;
         if (minHeight <= newHeight)
@@ -68,12 +68,12 @@ public class ResizePanel : MonoBehaviour, IDragHandler
     }
     private void ResizeTop(float deltaY)
     {
-        float scaleY = rtParent.localScale.y;
+        float scaleY = rtParent.lossyScale.y;
         deltaY /= scaleY;
         float newHeight = rtParent.rect.height + deltaY;
         if (minHeight <= newHeight)
         {
-            rtParent.offsetMin += new Vector2(0, deltaY);
+            rtParent.offsetMax += new Vector2(0, deltaY);
         }
     }
 }

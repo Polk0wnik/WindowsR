@@ -11,12 +11,14 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public RectTransform rectTransform { get; set; }
     private Canvas canvas;
     private CanvasGroup canGroup;
+    public Transform acceptParentTrans { get; set; }
     private void Awake()
     {
         line = GetComponent<Outline>();
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         canGroup = GetComponent<CanvasGroup>();
+        acceptParentTrans = GetComponent<Transform>();
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -39,9 +41,10 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         hasHitPointerEnter = true;
         IsDraggableItem = true;
 
-        canGroup.alpha = 0.5f;
-        canGroup.blocksRaycasts = false; 
+        BlockRaycast(false, 0.5f);
         rectTransform.SetAsLastSibling();
+        acceptParentTrans = transform.parent;
+        rectTransform.SetParent(canvas.transform);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -53,8 +56,8 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canGroup.alpha = 1;
-        canGroup.blocksRaycasts = true;
+        rectTransform.SetParent(acceptParentTrans);
+        BlockRaycast(true, 1f);
 
         IsDraggableItem = false;
         hasHitPointerEnter = false;
@@ -86,6 +89,11 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void PointerExit()
     { 
         hasHitPointerEnter = false; 
+    }
+    public void BlockRaycast(bool isBlockRay, float alpha)
+    {
+        canGroup.alpha = alpha;
+        canGroup.blocksRaycasts = isBlockRay;
     }
  
 }

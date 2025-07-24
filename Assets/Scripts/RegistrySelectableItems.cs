@@ -4,6 +4,7 @@ using UnityEngine;
 public class RegistrySelectableItems : MonoBehaviour
 {
     public  List<DraggableItem> selectedItems = new();
+    public  List<DraggableItem> dropItems = new();
     public  List<DraggableItem> draggableItems = new();
     public readonly Dictionary<DraggableItem, Vector2> itemsOffset = new();
     public DraggableItem currentDrItem { get; private set; }
@@ -25,7 +26,8 @@ public class RegistrySelectableItems : MonoBehaviour
     }
     public void AddItem(DraggableItem item)
     {
-        selectedItems.Add(item); 
+        selectedItems.Add(item);
+        dropItems.Add(item);
     }
     public void ResetItems()
     {
