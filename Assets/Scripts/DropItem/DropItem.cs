@@ -39,7 +39,7 @@ public class DropItem : MonoBehaviour, IDropHandler
     }
     private static void Drop(DraggableItem item, Transform trTarget)
     {
-        if (item == null && trTarget == null) return;
+        if (item == null || trTarget == null) return;
         item.acceptParentTrans = trTarget;
         item?.transform.SetParent(trTarget);
         item?.LineDisable();
