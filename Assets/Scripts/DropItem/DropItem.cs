@@ -14,11 +14,13 @@ public class DropItem : MonoBehaviour, IDropHandler
     }
     public void OnDrop(PointerEventData eventData)
     {
-        SingleDrop();
+       
         if (reg.dropItems.Count > 1)
         {
             MultipleDrop();
+            return;
         }
+        SingleDrop();
     }
     private void SingleDrop()
     {
@@ -39,7 +41,7 @@ public class DropItem : MonoBehaviour, IDropHandler
     }
     private static void Drop(DraggableItem item, Transform trTarget)
     {
-        if (item == null && trTarget == null) return;
+        if (item == null || trTarget == null) return; 
         item.acceptParentTrans = trTarget;
         item?.transform.SetParent(trTarget);
         item?.LineDisable();

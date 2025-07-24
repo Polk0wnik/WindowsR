@@ -1,3 +1,4 @@
+using Drag.SelectItem;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,7 +31,7 @@ public class PointerEventUI : MonoBehaviour
     private bool IsPointerDraggable()
     {
         foreach (var hit in GetRaycastHitResults())
-            if (hit.gameObject.GetComponent<DraggableItem>()) return true;
+            if (hit.gameObject.GetComponent<HashPointerEnter>()) return true;
         return false;
     }
 }
