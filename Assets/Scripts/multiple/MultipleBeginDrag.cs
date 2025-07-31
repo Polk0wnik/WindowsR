@@ -4,11 +4,13 @@ using UnityEngine.EventSystems;
 public class MultipleBeginDrag : MonoBehaviour
 {
     RegistrySelectableItems reg;
+    private Canvas can;
     private void Awake()
     {
         reg = FindObjectOfType<RegistrySelectableItems>();
+        can = GetComponentInParent<Canvas>();
     }
-    public bool OnMultipleBeginDrag(PointerEventData eventData, DraggableItem item)
+    public bool OnMultipleBeginDrag(PointerEventData eventData, DragBase item)
     {
         if (reg.selectedItems.Count > 1 && reg.selectedItems.Contains(item))
         {
@@ -20,12 +22,15 @@ public class MultipleBeginDrag : MonoBehaviour
     }
     private void CalculateOffset(PointerEventData eventData)
     {
-        foreach(var item in reg.selectedItems)
+        Vector2 cursorLocalPointOnCanvas;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            can.transform as RectTransform, eventData.position, eventData.pressEventCamera, out cursorLocalPointOnCanvas);
+        foreach (var item in reg.selectedItems)
         {
-            Vector2 offset = (Vector2)item.rectTransform.position - eventData.position;
+            item.OnBeginDrag(eventData);
+            Vector2 offset = (Vector2)item.rectTransform.anchoredPosition - cursorLocalPointOnCanvas;
             reg?.SetItemOffset(item, offset);
-            item.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            item.GetComponent<CanvasGroup>().alpha = 0.5f;
+
         }
     }
 }

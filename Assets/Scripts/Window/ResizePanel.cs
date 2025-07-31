@@ -17,7 +17,7 @@ public class ResizePanel : MonoBehaviour, IDragHandler
     private void Start()
     {
         canvas = GetComponentInParent<Canvas>();
-        target = GetComponentInParent<HashWindow>().rcTr;
+        target = GetComponentInParent<HashResizyWindow>().rcTr;
     }
 
     public void OnDrag(PointerEventData eventData)

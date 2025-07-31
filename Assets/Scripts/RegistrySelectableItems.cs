@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class RegistrySelectableItems : MonoBehaviour
 {
-    public  List<DraggableItem> selectedItems = new();
-    public  List<DraggableItem> dropItems = new();
-    public  List<DraggableItem> draggableItems = new();
-    public readonly Dictionary<DraggableItem, Vector2> itemsOffset = new();
-    public DraggableItem currentDrItem { get; private set; }
+    public  List<DragBase> selectedItems = new();
+    public  List<DragBase> dropItems = new();
+    public  List<DragBase> draggableItems = new();
+    public readonly Dictionary<DragBase, Vector2> itemsOffset = new();
+    public DragBase currentDrItem { get; private set; }
     private SelectionFrame frameSelect;
     private void Awake()
     {
-        draggableItems.AddRange(GetComponentsInChildren<DraggableItem>(false));
+        draggableItems.AddRange(GetComponentsInChildren<DragBase>(false));
         frameSelect = GetComponent<SelectionFrame>();
     }
     private void OnEnable()
@@ -24,30 +24,29 @@ public class RegistrySelectableItems : MonoBehaviour
         frameSelect.onAddSelectedItem -= AddItem;
         frameSelect.onResetSelectedItem -= ResetItems;
     }
-    public void AddItem(DraggableItem item)
+    public void AddItem(DragBase item)
     {
-        selectedItems.Add(item);
-        dropItems.Add(item);
+        SetItem(item);
     }
     public void ResetItems()
     {
         foreach (var item in selectedItems)
-            item?.ResetItem();
+            item?.context.ResetInFrame(item.line);
         selectedItems.Clear(); 
     }
-    public void SetCurrentItem()
+    public void FindCurrentItemDRItem()
     {
         currentDrItem = null;
         foreach (var item in draggableItems)
         {
-            if (item.hasHitPointerEnter)
+            if (item.context.HasHitPointerEnter)
             {
                 currentDrItem = item;
                 break;
             }
         }
     }
-    public void SetItemOffset(DraggableItem item, Vector2 offset)
+    public void SetItemOffset(DragBase item, Vector2 offset)
     {
         itemsOffset[item] = offset;
     }
@@ -55,8 +54,16 @@ public class RegistrySelectableItems : MonoBehaviour
     {
         itemsOffset.Clear();
     }
-    public Vector2 GetItemOffset(DraggableItem item)
+    public Vector2 GetItemOffset(DragBase item)
     {
         return itemsOffset[item];
+    }
+    private void SetItem(DragBase drBase)
+    {
+        if(drBase.gameObject.layer == 6)
+        {
+            selectedItems.Add(drBase);
+            dropItems.Add(drBase);
+        }
     }
 }

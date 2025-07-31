@@ -29,7 +29,7 @@ public class MainDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        reg?.SetCurrentItem();
+        reg?.FindCurrentItemDRItem();
         sbd?.OnSingleBeginDrag(eventData, reg.currentDrItem);
         isDraggingAll = mbd.OnMultipleBeginDrag(eventData, reg.currentDrItem);
     }
@@ -52,7 +52,7 @@ public class MainDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if(!isDraggingAll)
             reg?.ResetItems();
-        reg?.SetCurrentItem();
+        reg?.FindCurrentItemDRItem();
         reg?.currentDrItem?.OnPointerClick(eventData);
     }
 

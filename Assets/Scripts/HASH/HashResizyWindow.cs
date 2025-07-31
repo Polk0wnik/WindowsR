@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HashWindow : MonoBehaviour
+public class HashResizyWindow : MonoBehaviour
 {
     public RectTransform rcTr { get; private set; }
     private void Awake()

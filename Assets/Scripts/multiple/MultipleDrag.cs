@@ -12,19 +12,14 @@ public class MultipleDrag : MonoBehaviour
     }
     public void OnMultipleDrag(PointerEventData eventData)
     {
-        foreach(var item in reg.selectedItems)
+        Vector2 currentCursorLocalPointOnCanvas;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            can.transform as RectTransform, eventData.position, eventData.pressEventCamera, out currentCursorLocalPointOnCanvas);
+        foreach (var item in reg.selectedItems)
         {
-            if(reg.itemsOffset.ContainsKey(item))
-            {
-                item.rectTransform.anchoredPosition = GetPosition(eventData,item);
-            }
+            if (!reg.itemsOffset.ContainsKey(item)) continue;
+            item.rectTransform.anchoredPosition = currentCursorLocalPointOnCanvas + reg.GetItemOffset(item);
+            //Не надо вызывать функцую Drag, тк мы ее выполняем самостоятельно(по другому)
         }
-    }
-    public Vector2 GetPosition(PointerEventData eventData, DraggableItem item)
-    {
-        Vector2 newPosition = eventData.position + reg.GetItemOffset(item);
-        Vector2 localPosition;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(can.transform as RectTransform, newPosition, eventData.pressEventCamera,out localPosition);
-        return localPosition;
     }
 }

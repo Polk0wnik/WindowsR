@@ -8,7 +8,7 @@ public class SingleEndDrag : MonoBehaviour
     {
         reg = FindObjectOfType<RegistrySelectableItems>();
     }
-    public void OnSingleEndDrag(PointerEventData eventData, DraggableItem item)
+    public void OnSingleEndDrag(PointerEventData eventData, DragBase item)
     {
         item?.OnEndDrag(eventData);  
     }

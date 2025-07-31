@@ -3,7 +3,7 @@ using UnityEngine;
 public class SelectionFrame : MonoBehaviour
 {
     public event Func<bool> onPointerEnterUI;
-    public event Action<DraggableItem> onAddSelectedItem;
+    public event Action<DragBase> onAddSelectedItem;
     public event Action onResetSelectedItem;
     public GUISkin skin0;
     private int maxLayer = 50;
@@ -67,8 +67,8 @@ public class SelectionFrame : MonoBehaviour
             Rect itemRect = GetRectFromItem(item);
             if (screen.Overlaps(itemRect, true))
             {
-                item?.SetInSelectionFrame();
-                item?.LineEnable();
+                item?.context.SetInFrame(item.line);
+                item?.context.LineEnable(item.line);
                 onAddSelectedItem?.Invoke(item);
                 screenSpaceRect = Rect.zero;
             }
@@ -94,7 +94,7 @@ public class SelectionFrame : MonoBehaviour
         float height = Mathf.Abs(end.y - start.y);
         return new Rect(posX, posY, width, height);
     }
-    private Rect GetRectFromItem(DraggableItem item)
+    private Rect GetRectFromItem(DragBase item)
     {
         Vector3[] positions = new Vector3[4];
         item.rectTransform?.GetWorldCorners(positions);

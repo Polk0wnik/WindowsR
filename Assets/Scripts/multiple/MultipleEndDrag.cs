@@ -14,6 +14,7 @@ public class MultipleEndDrag : MonoBehaviour
         {
             item.GetComponent<CanvasGroup>().blocksRaycasts = true;
             item.GetComponent<CanvasGroup>().alpha = 1f;
+            item.OnEndDrag(eventData);
         }
         reg?.ResetItemOffset();
     }
