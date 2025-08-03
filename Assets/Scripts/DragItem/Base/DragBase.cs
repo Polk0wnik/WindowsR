@@ -22,23 +22,23 @@ public abstract class DragBase : MonoBehaviour , IPointerClickHandler , IPointer
         rectTransform = GetComponent<RectTransform>();
         canGroup = GetComponent<CanvasGroup>();
     }
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         context.PointerEnter();
         context.LineEnable(line);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
         context.PointerExit();
         context.LineDisable(line);
     }
-    public void OnPointerClick(PointerEventData eventData)
+    public virtual void OnPointerClick(PointerEventData eventData)
     {
         context.PointerEnter();
         context.LineEnable(line);
     }
-    public void OnBeginDrag(PointerEventData eventData)
+    public virtual void OnBeginDrag(PointerEventData eventData)
     {
         context.SetHasHitPointerEnter(true);
         context.SetIsDraggableItem(true);
@@ -49,14 +49,14 @@ public abstract class DragBase : MonoBehaviour , IPointerClickHandler , IPointer
         rectTransform.SetParent(canvas.transform);
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public virtual void OnDrag(PointerEventData eventData)
     {
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         context.SetHasHitPointerEnter(true);
         context.SetIsDraggableItem(true);
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public virtual void OnEndDrag(PointerEventData eventData)
     {
         rectTransform.SetParent(acceptParentTrans);
         context.BlockRaycast(true, 1f, canGroup);
@@ -65,4 +65,13 @@ public abstract class DragBase : MonoBehaviour , IPointerClickHandler , IPointer
 
     }
 
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        context.LineDisable(line);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        context.LineEnable(line);
+    }
 }

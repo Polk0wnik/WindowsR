@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class MainDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class MainDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler , IPointerUpHandler , IPointerDownHandler
 {
     private bool isDraggingAll;
+    private ScrollRect scrollRC;
 
     MultipleBeginDrag mbd;
     MultipleDrag md;
@@ -45,15 +47,33 @@ public class MainDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     { 
         med?.OnMultipleEndDrag(eventData);
         sed?.OnSingleEndDrag(eventData, reg.currentDrItem);
-        isDraggingAll = false;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData) // третий
     {
         if(!isDraggingAll)
             reg?.ResetItems();
-        reg?.FindCurrentItemDRItem();
-        reg?.currentDrItem?.OnPointerClick(eventData);
+        reg?.currentDrItem?.OnPointerClick(eventData); 
+        isDraggingAll = false;
     }
 
+    public void OnPointerUp(PointerEventData eventData)// второй
+    {
+        reg?.currentDrItem?.OnPointerUp(eventData);
+        if (scrollRC != null)
+        {
+            scrollRC.enabled = true;
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData) // первый 
+    {
+        reg?.FindCurrentItemDRItem(); 
+        reg?.currentDrItem?.OnPointerDown(eventData);
+        scrollRC = reg?.currentDrItem?.GetComponentInParent<ScrollRect>();
+        if(scrollRC != null)
+        {
+            scrollRC.enabled = false;
+        }
+    }
 }

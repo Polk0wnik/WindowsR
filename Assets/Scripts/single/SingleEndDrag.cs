@@ -11,5 +11,6 @@ public class SingleEndDrag : MonoBehaviour
     public void OnSingleEndDrag(PointerEventData eventData, DragBase item)
     {
         item?.OnEndDrag(eventData);  
+        reg.ResetDropItems();
     }
 }

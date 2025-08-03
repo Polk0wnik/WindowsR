@@ -8,12 +8,7 @@ public abstract class DropContentBase : MonoBehaviour, IDropHandler
     protected RegistrySelectableItems reg;
     protected RectTransform rc;
     protected Transform trTarget;
-    private void Awake()
-    {
-        reg = FindObjectOfType<RegistrySelectableItems>();
-        rc = GetComponent<RectTransform>();
-    }
-    public void OnDrop(PointerEventData eventData)
+    public virtual void OnDrop(PointerEventData eventData)
     {
         if (reg.dropItems.Count > 1)
         {

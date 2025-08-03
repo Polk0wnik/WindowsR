@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 257052434}
   - component: {fileID: 257052438}
   m_Layer: 5
-  m_Name: MainPanel
+  m_Name: HashDropContentOnPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1939,7 +1939,7 @@ GameObject:
   - component: {fileID: 1463209491}
   - component: {fileID: 1463209492}
   m_Layer: 5
-  m_Name: Content
+  m_Name: HashDropContentOnWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2011,7 +2011,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1463209488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ff0125e84f45df4696e538e288e7c58, type: 3}
+  m_Script: {fileID: 11500000, guid: c5c8eed0fdb9c3b4e857fa7c49fe9d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1494096771

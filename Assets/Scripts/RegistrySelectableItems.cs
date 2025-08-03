@@ -32,7 +32,7 @@ public class RegistrySelectableItems : MonoBehaviour
     {
         foreach (var item in selectedItems)
             item?.context.ResetInFrame(item.line);
-        selectedItems.Clear(); 
+        selectedItems?.Clear(); 
     }
     public void FindCurrentItemDRItem()
     {
@@ -46,13 +46,21 @@ public class RegistrySelectableItems : MonoBehaviour
             }
         }
     }
+    public void ResetDropItems()
+    {
+        foreach(var item in dropItems)
+        {
+            item?.context.ResetInFrame(item.line);
+        }
+        dropItems?.Clear();
+    }
     public void SetItemOffset(DragBase item, Vector2 offset)
     {
         itemsOffset[item] = offset;
     }
     public void ResetItemOffset()
     {
-        itemsOffset.Clear();
+        itemsOffset?.Clear();
     }
     public Vector2 GetItemOffset(DragBase item)
     {

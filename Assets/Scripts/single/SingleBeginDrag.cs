@@ -12,8 +12,8 @@ public class SingleBeginDrag : MonoBehaviour
     {
         if (reg.selectedItems.Count <= 1 || !reg.selectedItems.Contains(item))
         {
-            item?.OnBeginDrag(eventData);
             reg.ResetItems();
+            item?.OnBeginDrag(eventData);
         }
     }
 }
