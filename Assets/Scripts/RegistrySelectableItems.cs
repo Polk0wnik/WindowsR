@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RegistrySelectableItems : MonoBehaviour
@@ -16,17 +17,13 @@ public class RegistrySelectableItems : MonoBehaviour
     }
     private void OnEnable()
     {
-        frameSelect.onAddSelectedItem += AddItem;
+        frameSelect.onAddSelectedItem += AddItemSelectAndDrop;
         frameSelect.onResetSelectedItem += ResetItems;
     }
     private void OnDisable()
     {
-        frameSelect.onAddSelectedItem -= AddItem;
+        frameSelect.onAddSelectedItem -= AddItemSelectAndDrop;
         frameSelect.onResetSelectedItem -= ResetItems;
-    }
-    public void AddItem(DragBase item)
-    {
-        SetItem(item);
     }
     public void ResetItems()
     {
@@ -66,12 +63,21 @@ public class RegistrySelectableItems : MonoBehaviour
     {
         return itemsOffset[item];
     }
-    private void SetItem(DragBase drBase)
+    public void AddItemSelectAndDrop(DragBase item)
     {
-        if(drBase.gameObject.layer == 6)
+
+        if (item.gameObject.layer == 6 && !selectedItems.Contains(item))
         {
-            selectedItems.Add(drBase);
-            dropItems.Add(drBase);
+            selectedItems.Add(item);
+            dropItems.Add(item);
+        }
+    }
+    public void AddItemDrag(DragBase item)
+    {
+
+        if (!draggableItems.Contains(item))
+        {
+            draggableItems.Add(item);
         }
     }
 }
