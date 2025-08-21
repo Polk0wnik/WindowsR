@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class DragBase : MonoBehaviour , IPointerClickHandler , IPointerEnterHandler, IPointerExitHandler
+public abstract class DragItemBase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public ItemContext context { get; private set; }
     public Outline line { get; private set; }
@@ -12,15 +13,23 @@ public abstract class DragBase : MonoBehaviour , IPointerClickHandler , IPointer
     private Canvas canvas;
     public CanvasGroup canGroup { get; private set; }
     public Transform acceptParentTrans { get; set; }
+    public ItemData currentItemData { get; private set; }
+    public Image image { get; private set; }
+    public TextMeshProUGUI nameText { get; private set; }
     private void Awake()
     {
         context = new ItemContext();
         acceptParentTrans = GetComponent<Transform>();
-        canvas = acceptParentTrans.GetComponentInParent<Canvas>();
 
         line = GetComponent<Outline>();
         rectTransform = GetComponent<RectTransform>();
         canGroup = GetComponent<CanvasGroup>();
+        image = GetComponent<Image>();
+        nameText = GetComponentInChildren<TextMeshProUGUI>();
+    }
+    private void Start()
+    {
+        canvas = acceptParentTrans.GetComponentInParent<Canvas>();
     }
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
@@ -73,5 +82,12 @@ public abstract class DragBase : MonoBehaviour , IPointerClickHandler , IPointer
     public void OnPointerDown(PointerEventData eventData)
     {
         context.LineEnable(line);
+    }
+    public void SetDataItem(ItemData itemData)
+    {
+        currentItemData = itemData;
+        currentItemData.SetID();
+        image.sprite = itemData.spriteItem;
+        nameText.text = itemData.nameItem;
     }
 }

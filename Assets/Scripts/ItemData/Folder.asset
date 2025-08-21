@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameItem: Folder
   spriteItem: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  prefabItem: {fileID: 2818906269632780302, guid: 7980105d3349fe24b908881237a27b13, type: 3}
-  textItem: {fileID: 0}
-  inputFieldItem: {fileID: 0}
+  prefabItem: {fileID: 6703292470671300531, guid: 7980105d3349fe24b908881237a27b13, type: 3}
   itemType: 0
+  text: 

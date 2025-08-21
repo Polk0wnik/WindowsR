@@ -10,7 +10,7 @@ public class MultipleBeginDrag : MonoBehaviour
         reg = FindObjectOfType<RegistrySelectableItems>();
         can = GetComponentInParent<Canvas>();
     }
-    public bool OnMultipleBeginDrag(PointerEventData eventData, DragBase item)
+    public bool OnMultipleBeginDrag(PointerEventData eventData, DragItemBase item)
     {
         if (reg.selectedItems.Count > 1 && reg.selectedItems.Contains(item))
         {

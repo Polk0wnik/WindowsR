@@ -3,7 +3,7 @@ using UnityEngine;
 public class SelectionFrame : MonoBehaviour
 {
     public event Func<bool> onPointerEnterUI;
-    public event Action<DragBase> onAddSelectedItem;
+    public event Action<DragItemBase> onAddSelectedItem;
     public event Action onResetSelectedItem;
     public GUISkin skin0;
     private int maxLayer = 50;
@@ -94,7 +94,7 @@ public class SelectionFrame : MonoBehaviour
         float height = Mathf.Abs(end.y - start.y);
         return new Rect(posX, posY, width, height);
     }
-    private Rect GetRectFromItem(DragBase item)
+    private Rect GetRectFromItem(DragItemBase item)
     {
         Vector3[] positions = new Vector3[4];
         item.rectTransform?.GetWorldCorners(positions);

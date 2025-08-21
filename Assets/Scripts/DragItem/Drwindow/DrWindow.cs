@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DrWindow : DragBase
+public class DrWindow : DragItemBase
 {
     public override void OnPointerEnter(PointerEventData eventData)
     {

@@ -16,11 +16,11 @@ public abstract class DropContentBase : MonoBehaviour, IDropHandler
         }
         else if(reg.currentDrItem != null)
         {
-            DragBase item = reg.currentDrItem;
+            DragItemBase item = reg.currentDrItem;
             SingleDrop(trTarget, item);
         }
     }
-    private void SingleDrop(Transform trTarget, DragBase item)
+    private void SingleDrop(Transform trTarget, DragItemBase item)
     {
         if(item.gameObject.layer == 6)
         Drop(item, trTarget);
@@ -35,7 +35,7 @@ public abstract class DropContentBase : MonoBehaviour, IDropHandler
         }
         reg.dropItems.Clear();
     }
-    private static void Drop(DragBase item, Transform trTarget)
+    private static void Drop(DragItemBase item, Transform trTarget)
     {
         if (item == null || trTarget == null) return;
         item.acceptParentTrans = trTarget;

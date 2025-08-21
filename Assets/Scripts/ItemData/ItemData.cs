@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "newItem", menuName = "Data/ItemData")]
 public class ItemData : ScriptableObject
 {
+    public string id { get; private set; } = "";
     public string nameItem;
     public Sprite spriteItem;
     public GameObject prefabItem;
-    public TextMeshProUGUI textItem;
-    public InputField inputFieldItem;
     public ItemType itemType;
+    public string text;
+    public void SetID()
+    {
+        if (id == "")
+        {
+            id = Guid.NewGuid().ToString();
+        }
+    }
 }
 public enum ItemType
 {

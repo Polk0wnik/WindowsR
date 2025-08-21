@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class RegistrySelectableItems : MonoBehaviour
 {
-    public  List<DragBase> selectedItems = new();
-    public  List<DragBase> dropItems = new();
-    public  List<DragBase> draggableItems = new();
-    public readonly Dictionary<DragBase, Vector2> itemsOffset = new();
-    public DragBase currentDrItem { get; private set; }
+    public  List<DragItemBase> selectedItems = new();
+    public  List<DragItemBase> dropItems = new();
+    public  List<DragItemBase> draggableItems = new();
+    public readonly Dictionary<DragItemBase, Vector2> itemsOffset = new();
+    public readonly Dictionary<string ,DragItemBase> itemsID = new();
+    public DragItemBase currentDrItem { get; private set; }
     private SelectionFrame frameSelect;
     private void Awake()
     {
-        draggableItems.AddRange(GetComponentsInChildren<DragBase>(false));
+        draggableItems.AddRange(GetComponentsInChildren<DragItemBase>(false));
         frameSelect = GetComponent<SelectionFrame>();
     }
     private void OnEnable()
@@ -51,7 +52,7 @@ public class RegistrySelectableItems : MonoBehaviour
         }
         dropItems?.Clear();
     }
-    public void SetItemOffset(DragBase item, Vector2 offset)
+    public void SetItemOffset(DragItemBase item, Vector2 offset)
     {
         itemsOffset[item] = offset;
     }
@@ -59,11 +60,11 @@ public class RegistrySelectableItems : MonoBehaviour
     {
         itemsOffset?.Clear();
     }
-    public Vector2 GetItemOffset(DragBase item)
+    public Vector2 GetItemOffset(DragItemBase item)
     {
         return itemsOffset[item];
     }
-    public void AddItemSelectAndDrop(DragBase item)
+    public void AddItemSelectAndDrop(DragItemBase item)
     {
 
         if (item.gameObject.layer == 6 && !selectedItems.Contains(item))
@@ -72,12 +73,31 @@ public class RegistrySelectableItems : MonoBehaviour
             dropItems.Add(item);
         }
     }
-    public void AddItemDrag(DragBase item)
+    public void AddItemDrag(DragItemBase item)
     {
 
         if (!draggableItems.Contains(item))
         {
             draggableItems.Add(item);
+        }
+    }
+    public void AddItem(DragItemBase item, string id)
+    {
+        if (!itemsID.ContainsKey(id))
+        {
+            AddItemSelectAndDrop(item);
+            AddItemDrag(item);
+            itemsID.Add(id, item);
+        }
+    }
+    public void RemoveItem(string id)
+    {
+        if (itemsID.TryGetValue(id, out DragItemBase item))
+        {
+            itemsID.Remove(id);
+            draggableItems.Remove(item);
+            dropItems.Remove(item);
+            Destroy(item.gameObject);
         }
     }
 }

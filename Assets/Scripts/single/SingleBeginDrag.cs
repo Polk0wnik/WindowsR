@@ -8,7 +8,7 @@ public class SingleBeginDrag : MonoBehaviour
     {
         reg = FindObjectOfType<RegistrySelectableItems>();
     }
-    public void OnSingleBeginDrag(PointerEventData eventData, DragBase item)
+    public void OnSingleBeginDrag(PointerEventData eventData, DragItemBase item)
     {
         if (reg.selectedItems.Count <= 1 || !reg.selectedItems.Contains(item))
         {
