@@ -24,7 +24,7 @@ public abstract class DragItemBase : MonoBehaviour, IPointerClickHandler, IPoint
         line = GetComponent<Outline>();
         rectTransform = GetComponent<RectTransform>();
         canGroup = GetComponent<CanvasGroup>();
-        image = GetComponent<Image>();
+        image = transform.GetChild(0).GetComponent<Image>();
         nameText = GetComponentInChildren<TextMeshProUGUI>();
     }
     private void Start()

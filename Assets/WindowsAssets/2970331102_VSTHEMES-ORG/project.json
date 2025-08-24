@@ -1,0 +1,23 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "by : youtube@rainforeststudio",
+	"file" : "+SAKURA - 雨桜 2 [4K]-00.50.05.469-00.51.34.693-00.00.00.000-00.01.26.632.mp4",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0.15686 0.15686 0.13333"
+			}
+		}
+	},
+	"preview" : "preview.gif",
+	"tags" : [ "Landscape" ],
+	"title" : "雨 樱【 Rain Sakura 】- 4K",
+	"type" : "video",
+	"version" : 0
+}
