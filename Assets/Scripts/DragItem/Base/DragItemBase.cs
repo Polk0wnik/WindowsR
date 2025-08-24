@@ -16,6 +16,7 @@ public abstract class DragItemBase : MonoBehaviour, IPointerClickHandler, IPoint
     public ItemData currentItemData { get; private set; }
     public Image image { get; private set; }
     public TextMeshProUGUI nameText { get; private set; }
+    private RegistrySelectableItems reg;
     private void Awake()
     {
         context = new ItemContext();
@@ -30,6 +31,12 @@ public abstract class DragItemBase : MonoBehaviour, IPointerClickHandler, IPoint
     private void Start()
     {
         canvas = acceptParentTrans.GetComponentInParent<Canvas>();
+        reg = FindObjectOfType<RegistrySelectableItems>();
+    }
+    private void OnEnable()
+    {
+        reg.AddItemDrag(this);
+        reg.AddItemSelectAndDrop(this);
     }
     public virtual void OnPointerEnter(PointerEventData eventData)
     {

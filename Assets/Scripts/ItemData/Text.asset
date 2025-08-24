@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Text
   m_EditorClassIdentifier: 
   nameItem: Text
-  spriteItem: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  spriteItem: {fileID: 21300000, guid: 0a9005d36eec9c0428c97d7a3188c5be, type: 3}
   prefabItem: {fileID: 5520198957966704561, guid: 53fb4e470c40d1245949d02747bf095e, type: 3}
   itemType: 1
   text: 
