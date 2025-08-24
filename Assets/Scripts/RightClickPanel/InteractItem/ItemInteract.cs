@@ -14,7 +14,7 @@ public class ItemInteract : MonoBehaviour, IPointerClickHandler
     }
     private void OnEnable()
     {
-        //inputField.gameObject.SetActive(false);
+        inputField.gameObject.SetActive(false);
         //rectTr = GetComponent<RectTransform>();
         //rectTr.localScale = new Vector2(1, 1);
     }

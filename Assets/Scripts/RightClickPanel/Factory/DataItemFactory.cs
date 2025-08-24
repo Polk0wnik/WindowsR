@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class DataItemFactory : MonoBehaviour
 {
@@ -60,12 +61,12 @@ public class DataItemFactory : MonoBehaviour
         }
     }
     public void RenameItem()
-    {
-        if(currentItem != null && reg != null)
-        {
-
+    { 
+        if (currentItem != null && reg != null)
+        { 
             ItemInteract item = currentItem.GetComponent<ItemInteract>();
-            if (item.inputField.gameObject == null) print("item = null");
+            item.inputField.gameObject.SetActive(true);
+            print("raname");
             gameObject.SetActive(false);
         }
     }
