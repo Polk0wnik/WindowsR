@@ -31,10 +31,10 @@ public abstract class DragItemBase : MonoBehaviour, IPointerClickHandler, IPoint
     private void Start()
     {
         canvas = acceptParentTrans.GetComponentInParent<Canvas>();
-        reg = FindObjectOfType<RegistrySelectableItems>();
     }
     private void OnEnable()
     {
+        reg = FindObjectOfType<RegistrySelectableItems>();
         reg.AddItemDrag(this);
         reg.AddItemSelectAndDrop(this);
     }
