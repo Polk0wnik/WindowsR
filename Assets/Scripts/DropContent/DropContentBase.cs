@@ -22,7 +22,7 @@ public abstract class DropContentBase : MonoBehaviour, IDropHandler
     }
     private void SingleDrop(Transform trTarget, DragItemBase item)
     {
-        if(item.gameObject.layer == 6)
+        if(item.currentItemData.GetType() == typeof(ItemData))
         Drop(item, trTarget);
     }
 

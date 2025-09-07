@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2d4280dae84ea47bd991ec21851b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <currentItemData>k__BackingField: {fileID: 11400000, guid: c83558f742ccafd44b3d4dcf44a9eb4f, type: 2}
 --- !u!114 &8176562559251482815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b531e26fed23645ad4cbcfb40874b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabWindow: {fileID: 3342248889821052074, guid: 6f7939c0f5eb97547b644959bb49f20d, type: 3}
+  prefabWindow: {fileID: 6100915132740147403, guid: ff4a01b4d4966b04bbd80d8349ae5d19, type: 3}
 --- !u!1 &7467782548144220910
 GameObject:
   m_ObjectHideFlags: 0

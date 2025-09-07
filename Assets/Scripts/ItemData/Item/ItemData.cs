@@ -10,8 +10,9 @@ public class ItemData : ScriptableObject
     public GameObject prefabItem;
     public ItemType itemType;
     public string text;
-    public void SetID()
+    public void SetID(string newID)
     {
+        id = newID;
         if (id == "")
         {
             id = Guid.NewGuid().ToString();

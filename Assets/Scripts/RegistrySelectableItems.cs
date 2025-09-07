@@ -8,6 +8,8 @@ public class RegistrySelectableItems : MonoBehaviour
     public  List<DragItemBase> dropItems = new();
     public  List<DragItemBase> draggableItems = new();
     public readonly Dictionary<DragItemBase, Vector2> itemsOffset = new();
+    public readonly Dictionary<string ,DragItemBase> windowFromGridID = new();
+    public readonly Dictionary<string ,DragItemBase> windowsID = new();
     public readonly Dictionary<string ,DragItemBase> itemsID = new();
     public DragItemBase currentDrItem { get; private set; }
     private SelectionFrame frameSelect;
@@ -67,7 +69,7 @@ public class RegistrySelectableItems : MonoBehaviour
     public void AddItemSelectAndDrop(DragItemBase item)
     {
 
-        if (item.gameObject.layer == 6 && !selectedItems.Contains(item))
+        if (item.currentItemData.GetType() == typeof(ItemData) && !selectedItems.Contains(item))
         {
             selectedItems.Add(item);
             dropItems.Add(item);
@@ -98,6 +100,22 @@ public class RegistrySelectableItems : MonoBehaviour
             draggableItems.Remove(item);
             dropItems.Remove(item);
             Destroy(item.gameObject);
+        }
+    }
+    public void AddWindow(DragItemBase item, string id)
+    {
+        if (!windowsID.ContainsKey(id))
+        {
+            AddItemDrag(item);
+            windowsID.Add(id, item);
+        }
+    }
+    public void AddMiniWindow(DragItemBase item, string id)
+    {
+        if (!windowFromGridID.ContainsKey(id))
+        {
+            AddItemDrag(item);
+            windowFromGridID.Add(id, item);
         }
     }
 }

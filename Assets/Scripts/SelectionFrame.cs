@@ -65,7 +65,7 @@ public class SelectionFrame : MonoBehaviour
         foreach (var item in registry.draggableItems)
         {
             Rect itemRect = GetRectFromItem(item);
-            if (screen.Overlaps(itemRect, true) && item.gameObject.layer == 6)
+            if (screen.Overlaps(itemRect, true) && item.currentItemData.GetType() == typeof(ItemData))
             {
                 item?.context.SetInFrame(item.line);
                 item?.context.LineEnable(item.line);

@@ -13,7 +13,7 @@ public abstract class DragItemBase : MonoBehaviour, IPointerClickHandler, IPoint
     private Canvas canvas;
     public CanvasGroup canGroup { get; private set; }
     public Transform acceptParentTrans { get; set; }
-    public ItemData currentItemData { get; private set; }
+    [field:SerializeField]public ItemData currentItemData { get; private set; }
     public Image image { get; private set; }
     public TextMeshProUGUI nameText { get; private set; }
     private RegistrySelectableItems reg;
@@ -37,6 +37,20 @@ public abstract class DragItemBase : MonoBehaviour, IPointerClickHandler, IPoint
         reg = FindObjectOfType<RegistrySelectableItems>();
         reg.AddItemDrag(this);
         reg.AddItemSelectAndDrop(this);
+        line.enabled = false;
+        //context.HasHitPointerEnter();
+    }
+    private void OnDisable()
+    {
+        line.enabled = false;
+        if(reg.windowsID.TryGetValue(currentItemData.id, out DragItemBase window))
+        {
+            window.gameObject.SetActive(false);
+        }    
+        if(reg.windowFromGridID.TryGetValue(currentItemData.id, out DragItemBase minWindow))
+        {
+            minWindow.gameObject.SetActive(false);
+        }    
     }
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
@@ -93,7 +107,6 @@ public abstract class DragItemBase : MonoBehaviour, IPointerClickHandler, IPoint
     public void SetDataItem(ItemData itemData)
     {
         currentItemData = itemData;
-        currentItemData.SetID();
         image.sprite = itemData.spriteItem;
         nameText.text = itemData.nameItem;
     }
