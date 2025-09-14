@@ -87,10 +87,10 @@ public class RegistrySelectableItems : MonoBehaviour
     {
         if (!itemsID.ContainsKey(id))
         {
-            AddItemSelectAndDrop(item);
-            AddItemDrag(item);
             itemsID.Add(id, item);
         }
+        AddItemSelectAndDrop(item);
+        AddItemDrag(item);
     }
     public void RemoveItem(string id)
     {

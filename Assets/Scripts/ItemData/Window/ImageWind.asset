@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2925b31c5c49f3044b6eaae857cf155b, type: 3}
   m_Name: ImageWind
   m_EditorClassIdentifier: 
-  nameItem: 
-  spriteItem: {fileID: 0}
+  nameItem: image
+  spriteItem: {fileID: 21300000, guid: 3247ff4a0c0dec549a7a4224035daac5, type: 3}
   prefabItem: {fileID: 3898769682961853890, guid: d5b1719fea7f66c44979f43a521b841b, type: 3}
   itemType: 2
   text: 

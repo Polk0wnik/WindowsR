@@ -5,8 +5,10 @@ using UnityEngine.EventSystems;
 
 public class ItemInteract : MonoBehaviour, IPointerClickHandler
 {
+    public WindowData curData;
     DragItemBase curWindow;
-    RectTransform rectTr;
+    DragItemBase curItem;
+    DragItemBase curMinWindow;
     RegistrySelectableItems reg;
     public GameObject prefabWindow;
     private GameObject window;
@@ -20,7 +22,7 @@ public class ItemInteract : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         inputField = GetComponentInChildren<TMP_InputField>();
-        curWindow = GetComponent<DragItemBase>();
+        curItem = GetComponent<DragItemBase>();
         reg = FindObjectOfType<RegistrySelectableItems>();
     }
     private void Start()
@@ -45,20 +47,23 @@ public class ItemInteract : MonoBehaviour, IPointerClickHandler
     {
         if(Time.time - lastClickTime <= doubleClickIntervalTime)
         {
-            CreateAndOpenItemInWindow();
-            CreateMenuInGrid();
+            CreateWindow();
+            CreateMinWindow();
         }
         lastClickTime = Time.time;
     }
-    private void CreateMenuInGrid()
+    private void CreateMinWindow()
     {
         if (window != null)
         {
             if(!reg.itemsID.ContainsKey(curID))
             {
-            curID = curWindow.currentItemData.id;
+                WindowData newData = Instantiate(curData);
+            curID = curItem.currentItemData.id;
             newMinWindow = Instantiate(window);
             DragItemBase minWindow = newMinWindow.GetComponent<DragItemBase>();
+                minWindow.SetDataItem(newData);
+                minWindow.currentItemData.SetID(curID);
             reg.AddMiniWindow(minWindow,curID);
             newMinWindow.transform.SetParent(transParentGridWindow);
             window.SetActive(true);
@@ -71,16 +76,13 @@ public class ItemInteract : MonoBehaviour, IPointerClickHandler
             }
         }
     }
-    private void CreateAndOpenItemInWindow()
+    private void CreateWindow()
     {
         if (window == null && transParentCanvas != null && prefabWindow != null)
         {
             SetNewIdWindow();
             SetTransformParentWindow();
         }
-
-        if (window != null)
-            window.SetActive(true);
     }
 
     private void SetTransformParentWindow()
@@ -95,12 +97,14 @@ public class ItemInteract : MonoBehaviour, IPointerClickHandler
 
     private void SetNewIdWindow()
     {
-        window = Instantiate(prefabWindow, Vector3.zero, Quaternion.identity);
-        DragItemBase newWindow = window.GetComponent<DragItemBase>();
+        WindowData newData = Instantiate(curData);
+        window = Instantiate(prefabWindow);
+        curWindow = window.GetComponent<DragItemBase>();
+        curWindow.SetDataItem(newData);
+        string newId = curItem.currentItemData.id;
+        curWindow.currentItemData.SetID(newId);
+        reg.AddWindow(curWindow, newId);
 
-        string newId = curWindow.currentItemData.id;
-        reg.AddWindow(newWindow, newId);
-        newWindow.currentItemData.SetID(newId);
     }
 
 

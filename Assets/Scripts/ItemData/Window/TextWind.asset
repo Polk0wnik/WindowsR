@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2925b31c5c49f3044b6eaae857cf155b, type: 3}
   m_Name: TextWind
   m_EditorClassIdentifier: 
-  nameItem: 
-  spriteItem: {fileID: 0}
+  nameItem: text
+  spriteItem: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   prefabItem: {fileID: 6100915132740147403, guid: ff4a01b4d4966b04bbd80d8349ae5d19, type: 3}
   itemType: 1
   text: 

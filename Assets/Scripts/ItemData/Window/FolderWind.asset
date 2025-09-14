@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FolderWind
   m_EditorClassIdentifier: 
   nameItem: Folder
-  spriteItem: {fileID: 0}
+  spriteItem: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   prefabItem: {fileID: 3342248889821052074, guid: 6f7939c0f5eb97547b644959bb49f20d, type: 3}
   itemType: 0
   text: 

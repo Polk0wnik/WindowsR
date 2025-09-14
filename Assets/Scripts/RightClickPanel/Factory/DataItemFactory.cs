@@ -49,6 +49,7 @@ public class DataItemFactory : MonoBehaviour
         newItem.transform.SetParent(itemsParentTR);
         DragItemBase newItemDrag = newItem.GetComponent<DragItemBase>();
         newItemDrag.SetDataItem(newItemData);
+        newItemData?.SetID("");
         reg.AddItem(newItemDrag, newItemData.id);
     }
     public void RemoveItem()
